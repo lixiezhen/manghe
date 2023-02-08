@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block title %}盲盒详细页{% endblock %} {% block content %}
+<div class="row text-center vertical-middle-sm">
+
+    <h1>盲盒详细页</h1>
+    <div class="row">
+
+        <div class="col-md-6" > <div class="row">
+            <div class="col-md-4 text-right"><span>姓名:</span></div>
+            <div class="col-md-8 text-left">{{box.name}}</div>
+        </div>
+
+           <div class="row">
+                <div class="col-md-4 text-right"><span>年龄:</span></div>
+                <div class="col-md-8 text-left">{{box.age}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 text-right"><span>性别:</span></div>
+                <div class="col-md-8 text-left">{{box.gender}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 text-right"><span>学校:</span></div>
+                <div class="col-md-8 text-left">{{box.school.name}}</div>
+            </div>
+             <div class="row">
+                <div class="col-md-4 text-right"><span>地区:</span></div>
+                <div class="col-md-8 text-left">{{box.area}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 text-right"><span>qq:</span></div>
+                <div class="col-md-8 text-left">{{box.qq}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 text-right"><span>电话:</span></div>
+                <div class="col-md-8 text-left">{{box.mobile}}</div>
+            </div>
+            <div class="row">
+                    <div class="col-md-4 text-right"><span>邮箱:</span></div>
+                    <div class="col-md-8 text-left">{{box.email}}</div>
+                </div>
+            <div class="row">
+                <div class="col-md-4 text-right"><span>个人介绍:</span></div>
+                <div class="col-md-8 text-left">{{box.intro}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 text-right"><span>发布时间:</span></div>
+                <div class="col-md-8 text-left">{{box.create_time}}</div>
+            </div>
+            <a href="{{ box.id}}">收藏盲盒</a>
+        </div>
+
+   <div>
+        <h3><span class="glyphicon glyphicon-bullhorn"></span>本文评论</h3>
+        {% for comment in box.comments.all %}
+        <div>
+            <p><strong>{{ comment.commentator }}</strong>说:</p>
+            <p style="margin-left:40px;">{{ comment.body }}</p>
+        </div>
+        {% empty %}
+        <p>没有评论</p>
+        {% endfor %}
+
+        <h3><span class="glyphicon glyphicon-send"></span>看文章，发评论，不要沉默</h3>
+        <form method="post" class="form-horizontal" role="form">{% csrf_token %}
+            <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">评论员</label>
+                <div class="col-sm-10">
+                    {{ comment_form.commentator}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">评论</label>
+                <div class="col-sm-10">
+                    {{ comment_form.body }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <p><input type="submit" name="" value=" 发 评 论 " class="btn btn-primary"></p>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="comment_show">      {# 评论展示区域的div #}
+        <div class="feedback_area_title">评论列表</div>
+        <div class="comment_list">
+            {% for comment in comment_form %}    {# 循环展示评论的数据 #}
+                <div>
+                    <p>第{{ forloop.counter}}楼 -> By:{{ comment.comment_author.username }} -> {{ comment.comment_time }} -> <button class="reply" username={{ comment.comment_author.username }} pk={{ comment.pk }}>回复</button></p>  {# 在此处定义一个回复按钮，用户实现子评论,并且自定义属性username和pk，用于下面回复功能的实现 #}
+                    {% if comment.pre_comment_id %}
+                        <p id="p">原评论内容：{{ comment.pre_comment.comment_content }}</p>
+                    {% endif %}
+                    <p>评论内容：{{ comment.comment_content }}</p>
+                    <hr>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script>
+        $(".reply").click(function (){
+            $("#comment_content").focus()
+            val = "@" + $(this).attr("username") + "\n"
+            $("#comment_content").val(val)
+            pid = $(this).attr("pk")
+        })
+
+    </script>
+
+        <div class="product-detail">
+            {% load static %}
+            <img src="{% if box.photo %}
+            {{ box.photo.url }}{% else %}
+            {% static 'images/logo.png' %}{% endif %}">
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src='{% static "js/jquery.js" %}'></script>
+<script type="text/javascript" src="{% static 'js/layer.js'%}"></script>
+{% endblock %}

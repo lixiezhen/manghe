@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="left">
+<div class="row text-center vertical-middle-sm">
+     <h1>收藏的男生盲盒</h1>
+ </div>
+
+    <div>
+    {% for clt_box in all_clt_box %}
+        <p>
+            <span>收藏时间：{{clt_box.clt_time}}</span>
+             <span>作者：{{clt_box.author}}</span>
+                <a href="{% url 'box:man_intro' clt_box.Cltbox.pk %}">前往</a>
+                <a href="{% url 'box:delete_cltbox' clt_box.Cltbox.pk %}">删除</a>
+        </p>
+    {% endfor %}
+    </div>
+
+    {# function of previous and next  #}
+
+</div>
+{% endblock content %}

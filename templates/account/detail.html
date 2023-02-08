@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}我的盲盒{% endblock %} {% block content %}
+<div class="row text-center vertical-middle-sm">
+
+    <h1>我的盲盒</h1>
+    <div class="row">
+
+        <div class="col-md-6" > <div class="row">
+            <div class="col-md-4 text-right"><span>姓名:</span></div>
+            <div class="col-md-8 text-left">{{box.name}}</div>
+        </div>
+
+           <div class="row">
+                <div class="col-md-4 text-right"><span>年龄:</span></div>
+                <div class="col-md-8 text-left">{{box.age}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 text-right"><span>性别:</span></div>
+                <div class="col-md-8 text-left">{{box.gender}}</div>
+            </div>
+             <div class="row">
+                <div class="col-md-4 text-right"><span>地区:</span></div>
+                <div class="col-md-8 text-left">{{box.area}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 text-right"><span>qq:</span></div>
+                <div class="col-md-8 text-left">{{box.qq}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 text-right"><span>电话:</span></div>
+                <div class="col-md-8 text-left">{{box.mobile}}</div>
+            </div>
+            <div class="row">
+                    <div class="col-md-4 text-right"><span>邮箱:</span></div>
+                    <div class="col-md-8 text-left">{{user.email}}</div>
+                </div>
+            <div class="row">
+                <div class="col-md-4 text-right"><span>个人介绍:</span></div>
+                <div class="col-md-8 text-left">{{box.intro}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 text-right"><span>发布时间:</span></div>
+                <div class="col-md-8 text-left">{{box.create_time}}</div>
+            </div>
+            <a href="{% url 'box:edit_box' %}">
+                <button class="btn btn-primary btn-lg">修改盲盒</button>
+            </a>
+            <a href="{% url 'box:delete_box' %}">
+                <button class="btn btn-primary btn-lg">删除盲盒</button>
+            </a>
+        </div>
+
+        <div class="col-md-6">
+            {% load static %}
+            <div style="margin-right:100px">
+                {% if box.photo %}
+                <img src="{{ box.photo | striptags }}" class="img-circle" id="my_photo" name="user_face">
+                {% else %}
+                <img name="user_face" src="{% static 'images/box/202041422405279300_gG9hZve.jpg' %}" class="img-circle" id="my_photo">
+                {% endif %}
+            </div>
+            <div style="margin-right:100px">
+                <button class="btn btn-primary btn-lg" id= "upload_image" onclick="upload_image_layer()">upload my photo</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src='{% static "js/jquery.js" %}'></script>
+<script type="text/javascript" src="{% static 'js/layer.js'%}"></script>
+<script>
+function upload_image_layer(){
+    layer.open({
+        title:"上传头像",
+        area: ['650px', '600p x'],
+        type:2,
+        content:"{% url 'box:woman_image' %}",
+    });
+}
+</script>
+{% endblock %}

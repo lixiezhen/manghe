@@ -1,0 +1,66 @@
+{% extends "header.html" %}
+
+{% block title %}盲盒{% endblock %}
+
+{% block content %}
+    <div class="row text-center vertical-middle-sm">
+     <h1>查出的女生盲盒</h1>
+ </div>
+    {% if error_msg %}
+           <p>{{ error_msg }}</p>
+        {% endif %}
+{% for post in Box_list1 %}
+    <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>姓名</th>
+                    <th>年龄</th>
+                    <th>个人简介</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ post.name }}</td>
+                    <td>{{ post.age }}</td>
+                    <td>{{ post.intro }}</td>
+                   <td><a href="{% url 'box:woman_intro' post.id %}">前往</a>
+                </td>
+                </tr>
+                </tbody>
+            </table>
+{% empty %}
+        <div class="no-post">
+        没有搜索到符合条件的文章
+        </div>
+        {% endfor %}
+ <div class="row text-center vertical-middle-sm">
+     <h1>查出的男生盲盒</h1>
+ </div>
+    {% if error_msg %}
+           <p>{{ error_msg }}</p>
+        {% endif %}
+    {% for post in Box_list2 %}
+    <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>姓名</th>
+                    <th>年龄</th>
+                    <th>个人简介</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ post.name }}</td>
+                    <td>{{ post.age }}</td>
+                    <td>{{ post.intro }}</td>
+                   <td><a href="{% url 'box:man_intro' post.id %}">前往</a>
+                </td>
+                </tr>
+                </tbody>
+            </table>
+    {% empty %}
+        <div class="no-post">
+        没有搜索到符合条件的文章
+        </div>
+        {% endfor %}
+ {% endblock %}

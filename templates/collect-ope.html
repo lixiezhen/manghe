@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if request.user.username == pk_box.user %}
+                <p><a href="{% url 'box:edit_box' pk_box.pk %}">编辑</a></p>
+            {% else %}
+                {% if if_collect %}
+                    <p>已收藏</p>
+                {% else %}
+                <a href="{% url 'box:clt_box' pk_box.pk %}">收藏</a>
+                {% endif %}
+            {% endif %}
+</body>
+</html>

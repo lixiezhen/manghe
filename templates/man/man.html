@@ -1,0 +1,51 @@
+{% extends "header.html" %}
+
+{% block title %}男生盲盒{% endblock %}
+
+{% block content %}
+ <div class="row text-center vertical-middle-sm">
+     <h1>男生盲盒</h1>
+ </div>
+ <div class="row">
+     <div class="col-xs-12 col-md-8">
+     <ul>
+    <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>姓名</th>
+                    <th>年龄</th>
+                    <th>个人简介</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for obj in queryset %}
+                <tr>
+                    <td>{{ obj.name }}</td>
+                    <td>{{ obj.age }}</td>
+                    <td>{{ obj.intro }}</td>
+                    <td>
+                        <a href="{{ obj.id}}">详细信息</a></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+     </div>
+             <div class="clearfix">
+                <ul class="pagination">
+                {{ page_string }}
+                </ul>
+                 <li>
+                <form style="float: left;margin-left: -1px" method="get">
+                    <input name="page"
+                           style="position: relative;float:left;display: inline-block;width: 80px;border-radius: 0;"
+                           type="text" class="form-control" placeholder="页码">
+                    <button style="border-radius: 0" class="btn btn-default" type="submit">跳转</button>
+                </form>
+            </li>
+             </div>
+    </div>
+     </ul>
+     </div>
+     </div>
+ </div>
+ {% endblock %}

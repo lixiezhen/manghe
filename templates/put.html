@@ -1,0 +1,17 @@
+{% extends "header.html" %}
+
+{% block title %}放置盲盒{% endblock %}
+
+{% block content %}
+ <div class="row text-center vertical-middle-sm">
+     <h1>放置盲盒</h1>
+ </div>
+<div>
+        <p>
+
+            <a type="button" class="btn btn-primary btn-lg" href="{% url 'box:man_put' %}">放置男生盲盒</a>
+            <a type="button" class="btn btn-primary btn-lg" href="{% url 'box:woman_put' %}">放置女生盲盒</a>
+       </p>
+
+</div>
+ {% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}盲盒修改{% endblock %}
+{% block content %}
+<div class="row text-center vertical-middle-sm">
+</div>
+<div class="row">
+	<div class="col-xs-12 col-md-8">
+		<p class="text-center"><span>{{ woman_box_form.user.username }}</span></p>
+        <form method="post" novalidate>
+            {% csrf_token %}
+            <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>姓名</th>
+                        <th>年龄</th>
+                        <th>性别</th>
+                        <th>地区</th>
+                        <th>qq</th>
+                        <th>电话号码</th>
+                        <th>邮箱</th>
+                        <th>个人介绍</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{ woman_box_form.name }}</td>
+                        <td>{{ woman_box_form.age }}</td>
+                        <td>{{ woman_box_form.gender }}</td>
+                        <td>{{ woman_box_form.area }}</td>
+                        <td>{{ woman_box_form.qq }}</td>
+                        <td>{{ woman_box_form.mobile }}</td>
+                        <td>{{ woman_box_form.email }}</td>
+                        <td>{{ woman_box_form.intro }}</td>
+                       <div class="row">
+                           <input type="submit" class="btn btn-primary btn-lg" value="提交">
+                        </div>
+
+                    </tbody>
+                </table>
+        </form>
+	</div>
+</div>>
+{% endblock %}
